@@ -2,14 +2,20 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '../../utils/supabaseClient';
 import { useUser } from '../../contexts/UserContext';
+import { UserCircleIcon } from '@heroicons/react/24/outline'
 
 const Header =  () => {
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
+    const [showUserMenu, setShowUserMenu] = useState(false);
     const { user, setUser } = useUser();
     
     const toggleMenu = () => {
         setIsOpen(!isOpen);
+    };
+
+    const toggleUserMenu = () => {
+        setShowUserMenu(!showUserMenu);
     };
 
     const handleLogout = async () => {
@@ -26,18 +32,48 @@ const Header =  () => {
         <header className="bg-white-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between py-4">
-                    <div className="flex items-center">
+                    <div className="flex items-center relative">
                         {user ? (
-                            <button onClick={handleLogout} className="text-gray-900 font-medium hover:text-indigo-600">
-                                Logout
-                            </button>
+                            <>
+                                <button
+                                    onClick={toggleUserMenu}
+                                    className="flex items-center focus:outline-none"
+                                >
+                                    <UserCircleIcon className="h-6 w-6 text-gray-900" aria-hidden="true" />
+                                </button>
+                                
+                                {/* Dropdown Menu */}
+                                {showUserMenu && (
+                                    <div className="absolute top-8 left-0 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                                        <a
+                                            href="/member/dashboard"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        >
+                                            Homepage
+                                        </a>
+                                        <a
+                                            href="/member/family-notices/manage"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        >
+                                            My Family Notices
+                                        </a>
+                                        <button
+                                            onClick={handleLogout}
+                                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
+                                )}
+                            </>
                         ) : (
                             <a href="/auth" className="text-gray-900 font-medium hover:text-indigo-600">
                                 Login
                             </a>
                         )}
                     </div>
-                    <div className="hidden md:flex items-center space-x-4">
+                    <div className="flex items-center space-x-4">
+                       
                         <a href="/death-notices" className="text-base font-medium text-blue-900 hover:text-gray-300">Death Notices</a>
                         <a href="/family-notices" className="text-base font-medium text-blue-900 hover:text-gray-300">Family Notices</a>
                         <a href="/services-directory" className="text-base font-medium text-blue-900 hover:text-gray-300">Services Directory</a>
