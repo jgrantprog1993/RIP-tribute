@@ -1,22 +1,40 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { supabase } from '../utils/supabaseClient';
 
 function AuthPage() {
+    const router = useRouter();
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('viewer');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleAuth = async (e) => {
         e.preventDefault();
-        const action = isLogin
-            ? supabase.auth.signIn({ email, password })
-            : supabase.auth.signUp({ email, password }, { data: { role } });
-
-        const { user, error } = await action;
-        if (error) console.error('Error:', error.message);
-        else console.log('Success:', user);
+        setLoading(true);
+        setError(null);
+        const { data, error } = await (isLogin
+            ? supabase.auth.signInWithPassword({ email, password })
+            : supabase.auth.signUp({ email, password }, { data: { role } }));
+        
+        if (error) {
+            console.error('Error:', error.message);
+            setError(error.message);
+        } else if (!data) {
+            console.error('Authentication succeeded but no session is available.', data);
+            setError('Authentication succeeded but no session is available.');
+        } else {
+            console.log('data object:', data);
+            if (data.user && isLogin) {
+                router.push('/member/dashboard');
+            }
+        }
+        setLoading(false);
     };
+
+    // console.log(supabase.auth); // Check what's available under auth
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -41,7 +59,6 @@ function AuthPage() {
                             <label htmlFor="password" className="sr-only">Password</label>
                             <input id="password" name="password" type="password" autoComplete="current-password" required
                                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                   placeholder="Password"
                                    value={password}
                                    onChange={(e) => setPassword(e.target.value)} />
                         </div>

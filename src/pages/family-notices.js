@@ -1,14 +1,15 @@
+import React from 'react';
 import ObituaryList from '../app/components/ObituaryList';
 import obituaries from '../data/obituaries';
 import CountyList from '../app/components/CountyList';
 
-function HomePage() {
+const FamilyNoticesPage = () => {
     return (
         <div>
-            <h1>Home page</h1>
-           
+            <h1>Family Notices</h1>
+            
         </div>
     );
-}
+};
 
-export default HomePage; 
+export default FamilyNoticesPage;
