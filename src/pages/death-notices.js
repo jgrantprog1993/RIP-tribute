@@ -1,15 +1,27 @@
-import React from 'react';
-import ObituaryList from '../app/components/ObituaryList';
+import React, { useState } from 'react';
+import DeathNoticeList from '../app/components/DeathNoticeList';
+import DeathNoticeCards from '../app/components/DeathNoticeCards';
 import obituaries from '../data/obituaries';
-import CountyList from '../app/components/CountyList';
 
 const DeathNoticesPage = () => {
+    const [viewMode, setViewMode] = useState('list'); // 'list' or 'card'
+
     return (
-        <div>
-            <h1>Death Notices</h1>
-            <p>This is the Death Notices page where information about recent passings can be found.</p>
-            {/* <CountyList />
-            <ObituaryList obituaries={obituaries} /> */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 className="text-xl font-bold text-center my-6">Death Notices</h1>
+            <div className="flex justify-center mb-4">
+                <button
+                    onClick={() => setViewMode(viewMode === 'list' ? 'card' : 'list')}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Switch to {viewMode === 'list' ? 'Card' : 'List'} View
+                </button>
+            </div>
+            {viewMode === 'list' ? (
+                <DeathNoticeList obituaries={obituaries} />
+            ) : (
+                <DeathNoticeCards obituaries={obituaries} />
+            )}
         </div>
     );
 };
