@@ -1,6 +1,6 @@
 import React from 'react';
-import ObituaryList from '../app/components/ObituaryList';
-import obituaries from '../data/obituaries';
+import deathNoticeList from '../app/components/deathNoticeList';
+import deathNotices from '../data/deathNotices';
 import CountyList from '../app/components/CountyList';
 
 const FamilyNoticesPage = () => {

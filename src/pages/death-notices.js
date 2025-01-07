@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DeathNoticeList from '../app/components/DeathNoticeList';
 import DeathNoticeCards from '../app/components/DeathNoticeCards';
-import obituaries from '../data/obituaries';
+import deathNotices from '../data/deathNotices';
 
 const DeathNoticesPage = () => {
     const [viewMode, setViewMode] = useState('list'); // 'list' or 'card'
@@ -18,9 +18,9 @@ const DeathNoticesPage = () => {
                 </button>
             </div>
             {viewMode === 'list' ? (
-                <DeathNoticeList obituaries={obituaries} />
+                <DeathNoticeList deathNotices={deathNotices} />
             ) : (
-                <DeathNoticeCards obituaries={obituaries} />
+                <DeathNoticeCards deathNotices={deathNotices} />
             )}
         </div>
     );

@@ -1,5 +1,5 @@
 import '../styles/globals.css'; // Import your global styles
-import { ObituaryProvider } from '../contexts/ObituaryContext'; // Import your context provider
+import { deathNoticeProvider } from '../contexts/DeathNoticeContext'; // Import your context provider
 import Header from '../app/components/Header'; // Import the Header component
 import { UserProvider } from '../contexts/UserContext';
 import { useRouter } from 'next/router';

@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import obituaries from '../../data/obituaries'; // Adjust path as necessary
+import deathNotices from '../../data/deathNotices'; // Adjust path as necessary
 
-const useObituary = (id) => {
-    const [obituary, setObituary] = useState(null);
+const usedeathNotice = (id) => {
+    const [deathNotice, setdeathNotice] = useState(null);
 
     useEffect(() => {
-        const obit = obituaries.find(o => o.id === id);
-        setObituary(obit);
+        const obit = deathNotices.find(o => o.id === id);
+        setdeathNotice(obit);
     }, [id]);
 
-    return obituary;
+    return deathNotice;
 };
 
-export default useObituary; 
+export default usedeathNotice; 

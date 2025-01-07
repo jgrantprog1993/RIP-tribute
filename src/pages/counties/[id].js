@@ -1,27 +1,27 @@
 import { useRouter } from 'next/router';
-import obituaries from '../../data/obituaries'; // Assuming you have a data source
+import deathNotices from '../../data/deathNotices'; // Assuming you have a data source
 
-const CountyObituaries = () => {
+const CountyDeathNotices = () => {
     const router = useRouter();
     const { id } = router.query;
 
-    // Filter obituaries by county (assuming obituaries have a county property)
-    const countyObituaries = obituaries.filter(o => o.county.toLowerCase() === id);
+    // Filter deathNotices by county (assuming deathNotices have a county property)
+    const CountyDeathNotices = deathNotices.filter(o => o.county.toLowerCase() === id);
 
     return (
         <div>
-            <h1>Obituaries in {id.charAt(0).toUpperCase() + id.slice(1)}</h1>
-            {countyObituaries.length > 0 ? (
+            <h1>deathNotices in {id.charAt(0).toUpperCase() + id.slice(1)}</h1>
+            {countydeathNotices.length > 0 ? (
                 <ul>
-                    {countyObituaries.map(obituary => (
-                        <li key={obituary.id}>{obituary.name} - {obituary.date}</li>
+                    {CountyDeathNotices.map(deathNotice => (
+                        <li key={deathNotice.id}>{deathNotice.name} - {deathNotice.date}</li>
                     ))}
                 </ul>
             ) : (
-                <p>No obituaries found for this county.</p>
+                <p>No deathNotices found for this county.</p>
             )}
         </div>
     );
 };
 
-export default CountyObituaries; 
+export default CountyDeathNotices; 
