@@ -73,8 +73,11 @@ const DeathNoticeList = ({ deathNotices }) => {
                     {filtereddeathNotices.map(deathNotice => (
                         <tr key={deathNotice.id}>
                             <td>
-                                <Link legacyBehavior href={`/death-notice-details/${deathNotice.id}`} as={`/death-notice-details/${deathNotice.firstName}-${deathNotice.lastName}-${deathNotice.county}-${deathNotice.town}-${getDaysSinceEpoch(deathNotice.dateOfDeath)}`}>
-                                   <a>{deathNotice.firstName} {deathNotice.lastName}{deathNotice.nee ? ` (${deathNotice.nee})` : ''}</a>
+                                <Link legacyBehavior 
+                                    href={`/death-notice-details/[id]`} 
+                                    as={`/death-notice-details/${deathNotice.firstName}-${deathNotice.lastName}-${deathNotice.county}-${deathNotice.town}-${deathNotice.id}`}
+                                >
+                                    <a>{deathNotice.firstName} {deathNotice.lastName}{deathNotice.nee ? ` (${deathNotice.nee})` : ''}</a>
                                 </Link>
                             </td>
                             <td>{deathNotice.town}</td>
